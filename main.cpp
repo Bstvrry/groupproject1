@@ -1,3 +1,4 @@
+// program for slection of activities
 #include <iostream>
 #include <vector>
 #include <string>
