@@ -1,4 +1,4 @@
-// program for slection of activities
+// program for selection of co-curriculum activities
 #include <iostream>
 #include <vector>
 #include <string>
