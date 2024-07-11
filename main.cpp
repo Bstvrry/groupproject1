@@ -59,7 +59,6 @@ void addStudent(vector<Student>& students, vector<Club>& clubs, vector<Sport>& s
     cin >> newStudent.Age;
     cout << "Enter Student Group (1-3): ";
     cin >> newStudent.Group;
-
     cout << "Choose activities (enter the names separated by space, type 'end' to finish): ";
     string activity;
     while (cin >> activity && activity != "end") {
