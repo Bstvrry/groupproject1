@@ -114,3 +114,169 @@ void viewStudents(const vector<Student>& students) {
         cout << "---------------------\n";
     }
 }
+// Function to display all sports
+void viewSports(const vector<Sport>& sports) {
+    if (sports.empty()) {
+        cout << "\nNo sports added yet.\n";
+        return;
+    }
+    cout << "\nSport List:\n";
+    for (const auto& sport : sports) {
+        cout << "Name: " << sport.name << endl;
+        cout << "Capacity: " << sport.capacity << endl;
+        cout << "Male Count: " << sport.maleCount << endl;
+        cout << "Female Count: " << sport.femaleCount << endl;
+        cout << "---------------------\n";
+    }
+}
+// Function to display all clubs/societies
+void viewClubs(const vector<Club>& clubs) {
+    if (clubs.empty()) {
+        cout << "\nNo clubs/societies added yet.\n";
+        return;
+    }
+    cout << "\nClub/Society List:\n";
+    for (const auto& club : clubs) {
+        cout << "Name: " << club.name << endl;
+        cout << "Capacity: " << club.capacity << endl;
+        cout << "Male Count: " << club.maleCount << endl;
+        cout << "Female Count: " << club.femaleCount << endl;
+        cout << "---------------------\n";
+    }
+}
+
+
+// Function to view grouped students
+void viewGroupedStudents(const vector<Student>& students) {
+    if (students.empty()) {
+        cout << "\nNo students added yet.\n";
+        return;
+    }
+    cout << "\nGrouped Student List:\n";
+    for (int i = 1; i <= 3; ++i) {
+        cout << "\nGroup " << i << ":\n";
+        for (const auto& student : students) {
+            if (student.Group == i) {
+                cout << "Name: " << student.firstname << " " << student.sirname << endl;
+                cout << "Activities: ";
+                if (student.activities.empty()) {
+                    cout << "None\n";
+                } else {
+                    for (const auto& activity : student.activities) {
+                        cout << activity << " ";
+                    }
+                    cout << endl;
+                }
+                cout << "---------------------\n";
+            }
+        }
+    }
+}
+
+// Function to save data to a CSV file
+void saveData(const vector<Student>& students, const vector<Club>& clubs, const vector<Sport>& sports) {
+    ofstream outputFile("data.csv");
+    if (outputFile.is_open()) {
+        // Write student data
+        outputFile << "Student,Firstname,last name,Gender,Age,Group,Activities\n";
+        for (const auto& student : students) {
+            outputFile << "Student," << student.firstname << "," << student.sirname << "," << student.Gender << ","
+                      << student.Age << "," << student.Group << ",";
+            for (const auto& activity : student.activities) {
+                outputFile << activity << " ";
+            }
+            outputFile << "\n";
+        }
+
+        // Write club/society data
+        outputFile << "\nClub,Name,Capacity,MaleCount,FemaleCount\n";
+        for (const auto& club : clubs) {
+            outputFile << "Club," << club.name << "," << club.capacity << "," << club.maleCount << ","
+                      << club.femaleCount << "\n";
+        }
+
+        // Write sport data
+        outputFile << "\nSport,Name,Capacity,MaleCount,FemaleCount\n";
+        for (const auto& sport : sports) {
+            outputFile << "Sport," << sport.name << "," << sport.capacity << "," << sport.maleCount << ","
+                      << sport.femaleCount << "\n";
+        }
+        outputFile.close();
+        cout << "\nData saved successfully to data.csv!\n";
+    } else {
+        cout << "\nError opening file for saving data.\n";
+    }
+}
+
+// Function to open and read the saved CSV file
+void openSavedData() {
+    ifstream inputFile("data.csv");
+    if (inputFile.is_open()) {
+        string line;
+        cout << "\nReading data from data.csv:\n";
+        while (getline(inputFile, line)) {
+            cout << line << endl;
+        }
+        inputFile.close();
+    } else {
+        cout << "\nError opening file for reading data.\n";
+    }
+}
+
+int main() {
+    // Initialize vectors for students, clubs/societies, and sports
+    vector<Student> students;
+    vector<Club> clubs;
+    vector<Sport> sports;
+
+
+    // Initialize sports
+    sports.push_back({"Rugby", 20, 0, 0});
+    sports.push_back({"Athletics", 20, 0, 0});
+    sports.push_back({"Swimming", 20, 0, 0});
+    sports.push_back({"Soccer", 20, 0, 0});
+
+      // Initialize clubs/societies
+    clubs.push_back({"Journalism Club", 60, 0, 0});
+    clubs.push_back({"Red Cross Society", 60, 0, 0});
+    clubs.push_back({"AISEC", 60, 0, 0});
+    clubs.push_back({"Business Club", 60, 0, 0});
+    clubs.push_back({"Computer Science Club", 60, 0, 0});
+
+    // Main program loop
+    int choice;
+    do {
+        displayMainMenu();
+        cin >> choice;
+        switch (choice) {
+            case 1:
+                addStudent(students, clubs, sports);
+                break;
+            case 2:
+                viewStudents(students);
+                break;
+            case 3:
+                viewClubs(clubs);
+                break;
+            case 4:
+                viewSports(sports);
+                break;
+            case 5:
+                viewGroupedStudents(students);
+                break;
+            case 6:
+                saveData(students, clubs, sports);
+                break;
+            case 7:
+                openSavedData();
+                break;
+            case 8:
+                cout << "\nExiting program...\n";
+                break;
+            default:
+                cout << "\nInvalid choice. Please try again.\n";
+        }
+    } while (choice != 8);
+
+    return 0;
+}
