@@ -250,33 +250,35 @@ int main() {
         cin >> choice;
         switch (choice) {
             case 1:
-                addStudent(students, clubs, sports);
+                addStudent();
                 break;
-            case 2:
-                viewStudents(students);
-                break;
-            case 3:
-                viewClubs(clubs);
-                break;
-            case 4:
-                viewSports(sports);
-                break;
-            case 5:
-                viewGroupedStudents(students);
-                break;
-            case 6:
-                saveData(students, clubs, sports);
-                break;
-            case 7:
-                openSavedData();
-                break;
-            case 8:
-                cout << "\nExiting program...\n";
-                break;
-            default:
-                cout << "\nInvalid choice. Please try again.\n";
-        }
-    } while (choice != 8);
 
-    return 0;
+            case 2:
+                viewStudents();
+                break;
+
+            case 3:
+                viewClubs();
+                break;
+
+            case 4:
+                viewSports();
+                break;
+
+            case 5:
+                viewGroupedStudents();
+                break;
+
+            case 6:
+                saveAllFiles();
+                break;
+
+            case 7:
+                return 0;
+
+            default:
+                cout <<"Invalid choice. Please choose a valid option.\n";
+        }
+    }
+
 }
